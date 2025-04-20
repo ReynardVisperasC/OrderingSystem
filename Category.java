@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +20,7 @@ public class Category {
 
         // Create two panels
         JPanel addPanel = new JPanel();
-        addPanel.setBackground(Color.LIGHT_GRAY);
+        addPanel.setBackground(Color.CYAN);
         addPanel.setBounds(5, 50, 374, 250); // Set position and size
         addPanel.setLayout(null);
 
@@ -47,7 +49,7 @@ public class Category {
         AddButton.setBackground(new Color(245, 245, 245)); // Light gray background
         AddButton.setForeground(Color.BLACK); // Dark gray text color
         AddButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-        // AddButton.setEnabled(false);
+         AddButton.setEnabled(false);
         addPanel.add(AddButton);
         JPanel editdeletePanel = new JPanel();
         editdeletePanel.setBackground(Color.CYAN);
@@ -123,10 +125,31 @@ public class Category {
                 
                        
                     String name = textField.getText();
-                    controller.addCategory(new CategoryModel( name));
                     JOptionPane.showMessageDialog(frame, "Category Added: " + name);
                     textField.setText("");
+                    controller.addCategory(new CategoryModel( name));
                     
+                    
+            }
+        });
+         textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                toggleButton();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                toggleButton();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                toggleButton();
+            }
+
+            private void toggleButton() {
+                AddButton.setEnabled(!textField.getText().trim().isEmpty());
             }
         });
     }

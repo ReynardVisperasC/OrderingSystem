@@ -36,10 +36,12 @@ public class CategoryController {
 
     // Save categories to a file
     public void saveCategoriesToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) { // Append mode
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
             for (CategoryModel category : categories) {
                 writer.write(category.getId() + "," + category.getCategoryName());
                 writer.newLine();
+                categories.clear();
+                
             }
         } catch (IOException e) {
             System.out.println("Error saving categories to file: " + e.getMessage());
@@ -47,7 +49,7 @@ public class CategoryController {
     }
     // Load categories from a file
     public void loadCategoriesFromFile() {
-        categories.clear();
+       
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
