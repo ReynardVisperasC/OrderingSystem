@@ -10,6 +10,7 @@ public class Category {
     public Category() {
         // Set up the frame
         CategoryController controller = new CategoryController();
+        controller.loadCategoriesFromFile(); // Load existing data
         JFrame frame = new JFrame("Category Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
@@ -125,9 +126,9 @@ public class Category {
                 
                        
                     String name = textField.getText();
-                    JOptionPane.showMessageDialog(frame, "Category Added: " + name);
+                  
                     textField.setText("");
-                    controller.addCategory(new CategoryModel( name));
+                    controller.addCategory(name);
                     
                     
             }
@@ -156,3 +157,57 @@ public class Category {
 
     
 }
+// import java.util.Scanner;
+
+// public class Main {
+//     public static void main(String[] args) {
+//         CategoryController controller = new CategoryController();
+//         controller.loadCategoriesFromFile(); // Load existing data
+//         Scanner scanner = new Scanner(System.in);
+
+//         while (true) {
+//             System.out.println("\n1. Add Category");
+//             System.out.println("2. Edit Category");
+//             System.out.println("3. Delete Category");
+//             System.out.println("4. View Categories");
+//             System.out.println("5. Exit");
+//             System.out.print("Choose an option: ");
+
+//             int choice = scanner.nextInt();
+//             scanner.nextLine(); // Consume newline
+
+//             switch (choice) {
+//                 case 1 -> {
+//                     System.out.print("Enter category name: ");
+//                     String categoryName = scanner.nextLine();
+//                     controller.addCategory(categoryName);
+//                 }
+//                 case 2 -> {
+//                     System.out.print("Enter category ID to edit: ");
+//                     int id = scanner.nextInt();
+//                     scanner.nextLine(); // Consume newline
+//                     System.out.print("Enter new category name: ");
+//                     String newName = scanner.nextLine();
+//                     controller.editCategory(id, newName);
+//                 }
+//                 case 3 -> {
+//                     System.out.print("Enter category ID to delete: ");
+//                     int id = scanner.nextInt();
+//                     controller.deleteCategory(id);
+//                 }
+//                 case 4 -> {
+//                     System.out.println("Categories:");
+//                     for (CategoryModel category : controller.getAllCategories()) {
+//                         System.out.println(category);
+//                     }
+//                 }
+//                 case 5 -> {
+//                     System.out.println("Exiting...");
+//                     scanner.close();
+//                     return;
+//                 }
+//                 default -> System.out.println("Invalid option. Please try again.");
+//             }
+//         }
+//     }
+// }
