@@ -32,7 +32,9 @@ public class CategoryController {
     }
     public void populateComboBox(JComboBox<String> comboBox) {
     comboBox.removeAllItems();  // Clear existing items
+    comboBox.addItem("Select");
     for (CategoryModel category : categories) {
+       
         comboBox.addItem(category.getCategoryName());  // Add category names
     }
 }
@@ -43,16 +45,48 @@ public void reloadCategories() {
 
     // Edit a category by ID
    // Edit a category by category name
+// public void editCategory(String oldCategoryName, String newCategoryName) {
+//     for (CategoryModel category : categories) {
+//         if (category.getCategoryName().equalsIgnoreCase(oldCategoryName)) {
+//             category.setCategoryName(newCategoryName);
+//             saveCategoriesToFile();
+//             System.out.println("Category name \"" + oldCategoryName + "\" updated to \"" + newCategoryName + "\".");
+//             return;
+//         }
+//     }
+//     System.out.println("Category name \"" + oldCategoryName + "\" not found.");
+// }
+
 public void editCategory(String oldCategoryName, String newCategoryName) {
+    // Check if the new category name already exists
+    for (CategoryModel category : categories) {
+        if (category.getCategoryName().equalsIgnoreCase(newCategoryName)) {
+            JOptionPane.showMessageDialog(null,
+                "Category name \"" + newCategoryName + "\" already exists. Please use a unique name.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+
+    // Find and update the category name
     for (CategoryModel category : categories) {
         if (category.getCategoryName().equalsIgnoreCase(oldCategoryName)) {
             category.setCategoryName(newCategoryName);
             saveCategoriesToFile();
-            System.out.println("Category name \"" + oldCategoryName + "\" updated to \"" + newCategoryName + "\".");
+            reloadCategories(); // Refresh category list
+            JOptionPane.showMessageDialog(null,
+                "Category name \"" + oldCategoryName + "\" updated to \"" + newCategoryName + "\" successfully.",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
             return;
         }
     }
-    System.out.println("Category name \"" + oldCategoryName + "\" not found.");
+
+    JOptionPane.showMessageDialog(null,
+        "Category name \"" + oldCategoryName + "\" not found.",
+        "Error",
+        JOptionPane.ERROR_MESSAGE);
 }
 
 

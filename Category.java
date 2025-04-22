@@ -84,9 +84,14 @@ for (CategoryModel category : controller.getAllCategories()) {
 editButton.addActionListener(e -> {
     String selectedCategory = (String) categoryDropdown.getSelectedItem();
     String newName = editField.getText().trim();
-    if (!newName.isEmpty()) {
+    if(selectedCategory.equals("Select")){
+        editButton.setEnabled(false);
+        deleteButton.setEnabled(false);
+    }
+    if (newName.isEmpty()) {
         controller.editCategory(selectedCategory, newName);
         editField.setText("");
+        controller.populateComboBox(categoryDropdown);
     }
 });
 
@@ -153,8 +158,8 @@ deleteButton.addActionListener(e -> {
             backMenu.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new MainMenu(); // Navigate to the Category GUI
-                    frame.dispose(); // Dispose the current Menu window
+                    controller.populateComboBox(categoryDropdown); // Navigate to the Category GUI
+                     // Dispose the current Menu window
                 }
             });
             AddButton.addActionListener(new ActionListener() {
