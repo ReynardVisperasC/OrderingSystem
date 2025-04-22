@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class CategoryController {
@@ -30,6 +30,17 @@ public class CategoryController {
         JOptionPane.INFORMATION_MESSAGE);
     return;
     }
+    public void populateComboBox(JComboBox<String> comboBox) {
+    comboBox.removeAllItems();  // Clear existing items
+    for (CategoryModel category : categories) {
+        comboBox.addItem(category.getCategoryName());  // Add category names
+    }
+}
+public void reloadCategories() {
+    categories.clear();  // Clear current list
+    loadCategoriesFromFile();  // Reload data
+}
+
     // Edit a category by ID
    // Edit a category by category name
 public void editCategory(String oldCategoryName, String newCategoryName) {
@@ -46,8 +57,8 @@ public void editCategory(String oldCategoryName, String newCategoryName) {
 
 
     // Delete a category by ID
-    public void deleteCategory(int id) {
-        categories.removeIf(category -> category.getId() == id);
+    public void deleteCategoryByName(String categoryName) {
+        categories.removeIf(category -> category.getCategoryName().equalsIgnoreCase(categoryName));
         saveCategoriesToFile();
     }
 
