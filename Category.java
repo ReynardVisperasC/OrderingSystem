@@ -1,6 +1,5 @@
     import java.awt.*;
     import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
     import javax.swing.*;
     import javax.swing.event.DocumentEvent;
     import javax.swing.event.DocumentListener;
@@ -53,27 +52,27 @@
             AddButton.setEnabled(false);
             addPanel.add(AddButton);
             JPanel editdeletePanel = new JPanel();
+            
             editdeletePanel.setBackground(Color.CYAN);
             editdeletePanel.setBounds(50, 50, 300, 250); // Set position and size
             editdeletePanel.setLayout(null);
 // Create a dropdown for category selection
 JComboBox<String> categoryDropdown = new JComboBox<>();
 categoryDropdown.setBounds(50, 50, 200, 30);
+controller.populateComboBox(categoryDropdown);
 editdeletePanel.add(categoryDropdown);
-
-// Create a text field for editing
-JTextField editField = new JTextField();
-editField.setBounds(50, 90, 200, 30);
-editdeletePanel.add(editField);
 
 // Create Edit and Delete buttons
 JButton editButton = new JButton("Edit");
 editButton.setBounds(50, 130, 90, 30);
 editdeletePanel.add(editButton);
+editButton.setEnabled(false);
 
 JButton deleteButton = new JButton("Delete");
 deleteButton.setBounds(160, 130, 90, 30);
 editdeletePanel.add(deleteButton);
+
+deleteButton.setEnabled(false);
 
 // Load existing categories into the dropdown
 for (CategoryModel category : controller.getAllCategories()) {
@@ -83,16 +82,11 @@ for (CategoryModel category : controller.getAllCategories()) {
 // Edit button functionality
 editButton.addActionListener(e -> {
     String selectedCategory = (String) categoryDropdown.getSelectedItem();
-    String newName = editField.getText().trim();
-    if(selectedCategory.equals("Select")){
-        editButton.setEnabled(false);
-        deleteButton.setEnabled(false);
-    }
-    if (newName.isEmpty()) {
+    String newName = JOptionPane.showInputDialog(null,"Enter the New Category");
+
         controller.editCategory(selectedCategory, newName);
-        editField.setText("");
         controller.populateComboBox(categoryDropdown);
-    }
+    
 });
 
 // Delete button functionality
@@ -100,6 +94,7 @@ deleteButton.addActionListener(e -> {
     String selectedCategory = (String) categoryDropdown.getSelectedItem();
     controller.deleteCategoryByName(selectedCategory);
     categoryDropdown.removeItem(selectedCategory);
+    controller.populateComboBox(categoryDropdown);
 });
 
             // Create buttons for switching panels
@@ -134,7 +129,7 @@ deleteButton.addActionListener(e -> {
             });
 
             showPanel2.addActionListener(e -> {
-                controller.reloadCategories();
+                controller.populateComboBox(categoryDropdown);
                 addPanel.setVisible(false);
                 editdeletePanel.setVisible(true);
             });
@@ -153,27 +148,26 @@ deleteButton.addActionListener(e -> {
             // Make the frame visible
             frame.setVisible(true);
 
-
-            //functions
-            backMenu.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    controller.populateComboBox(categoryDropdown); // Navigate to the Category GUI
-                     // Dispose the current Menu window
+            categoryDropdown.addActionListener((ActionEvent e) -> {
+                Object selectedItem = categoryDropdown.getSelectedItem();
+                if (selectedItem == null || "Select".equals(selectedItem.toString())) {
+                    editButton.setEnabled(false);
+                    deleteButton.setEnabled(false);
+                } else {
+                    editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
                 }
             });
-            AddButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    
-                        
-                        String name = textField.getText();
-                    
-                        textField.setText("");
-                        controller.addCategory(name);
-                        
-                        
-                }
+            //functions
+            backMenu.addActionListener((ActionEvent e) -> {
+                new MainMenu(); // Navigate to the Category GUI
+                frame.dispose(); // Dispose the current Menu window
+            });
+            AddButton.addActionListener((ActionEvent e) -> {
+                String name = textField.getText();
+                
+                textField.setText("");
+                controller.addCategory(name);
             });
             textField.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
@@ -199,57 +193,4 @@ deleteButton.addActionListener(e -> {
 
         
     }
-    // import java.util.Scanner;
-
-    // public class Main {
-    //     public static void main(String[] args) {
-    //         CategoryController controller = new CategoryController();
-    //         controller.loadCategoriesFromFile(); // Load existing data
-    //         Scanner scanner = new Scanner(System.in);
-
-    //         while (true) {
-    //             System.out.println("\n1. Add Category");
-    //             System.out.println("2. Edit Category");
-    //             System.out.println("3. Delete Category");
-    //             System.out.println("4. View Categories");
-    //             System.out.println("5. Exit");
-    //             System.out.print("Choose an option: ");
-
-    //             int choice = scanner.nextInt();
-    //             scanner.nextLine(); // Consume newline
-
-    //             switch (choice) {
-    //                 case 1 -> {
-    //                     System.out.print("Enter category name: ");
-    //                     String categoryName = scanner.nextLine();
-    //                     controller.addCategory(categoryName);
-    //                 }
-    //                 case 2 -> {
-    //                     System.out.print("Enter category ID to edit: ");
-    //                     int id = scanner.nextInt();
-    //                     scanner.nextLine(); // Consume newline
-    //                     System.out.print("Enter new category name: ");
-    //                     String newName = scanner.nextLine();
-    //                     controller.editCategory(id, newName);
-    //                 }
-    //                 case 3 -> {
-    //                     System.out.print("Enter category ID to delete: ");
-    //                     int id = scanner.nextInt();
-    //                     controller.deleteCategory(id);
-    //                 }
-    //                 case 4 -> {
-    //                     System.out.println("Categories:");
-    //                     for (CategoryModel category : controller.getAllCategories()) {
-    //                         System.out.println(category);
-    //                     }
-    //                 }
-    //                 case 5 -> {
-    //                     System.out.println("Exiting...");
-    //                     scanner.close();
-    //                     return;
-    //                 }
-    //                 default -> System.out.println("Invalid option. Please try again.");
-    //             }
-    //         }
-    //     }
-    // }
+   
