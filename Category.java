@@ -3,6 +3,7 @@
     import javax.swing.*;
     import javax.swing.event.DocumentEvent;
     import javax.swing.event.DocumentListener;
+    import model.CategoryModel;
 
     public class Category {
         
