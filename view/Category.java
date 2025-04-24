@@ -1,9 +1,12 @@
+    package view;
+
     import java.awt.*;
     import java.awt.event.ActionEvent;
     import javax.swing.*;
     import javax.swing.event.DocumentEvent;
     import javax.swing.event.DocumentListener;
     import model.CategoryModel;
+    import controller.CategoryController;
 
     public class Category {
         

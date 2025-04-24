@@ -1,8 +1,11 @@
+package controller;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import model.CategoryModel;
+
 import javax.swing.JOptionPane;
 
 public class CategoryController {
