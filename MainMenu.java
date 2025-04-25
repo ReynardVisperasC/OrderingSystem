@@ -19,7 +19,7 @@ public class MainMenu {
         panel.setLayout(null);
 
         // Create buttons
-        JButton MenuButton = new JButton("Menu Management");
+        JButton MenuButton = new JButton("Menu Management UI");
         MenuButton.setBounds(100, 75, 200, 30);
         MenuButton.setBackground(Color.ORANGE);
         JButton categoryButton = new JButton("Category Management");
