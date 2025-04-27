@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import view.Category;
 public class MainMenu {
     public MainMenu() {
         // Create the main frame
@@ -40,7 +39,7 @@ public class MainMenu {
         categoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new view.Category(); // Navigate to the Category GUI
+                new Category(); // Navigate to the Category GUI
                 frame.dispose(); // Dispose the current Menu window
             }
         });
