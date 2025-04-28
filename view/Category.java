@@ -37,11 +37,18 @@
             textField.setBounds(50, 50, 300, 40); // Set position and size
 
             // Customize the JTextField for a minimalist look
-            textField.setFont(new Font("Arial", Font.PLAIN, 16)); // Set clean font
-            textField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Remove default border
-            textField.setBackground(new Color(245, 245, 245)); // Light gray background
-            textField.setForeground(Color.DARK_GRAY); // Text color
-            textField.setCaretColor(Color.BLACK); // Cursor color
+            textField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
+            textField.setBackground(new Color(240, 240, 240)); // Light grey background  
+            textField.setForeground(new Color(50, 50, 50)); // Dark grey text  
+            textField.setFont(new Font("Arial", Font.PLAIN, 14));  
+    
+            // Set additional styling  
+            textField.setCaretColor(Color.BLACK); // Cursor color  
+            textField.setOpaque(true); // Ensure the background color is shown  
+    
+            // Optional: Add placeholder text  
+           
+    
             addPanel.add(textField);
     
             JButton AddButton = new JButton("Submit");
