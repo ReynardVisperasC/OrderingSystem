@@ -25,7 +25,7 @@ public class CategoryModel{
 
     @Override
     public String toString(){
-        return "ID" + id + "Name" + categoryName;
+        return  id + ". " + categoryName ;
     }
 
     public static void setIdCounter(int value){

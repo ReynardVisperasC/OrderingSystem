@@ -19,7 +19,7 @@ public class CategoryController {
         if (category.getCategoryName().equals(categoryName)) {
             JOptionPane.showMessageDialog(null,
                 "Category name \"" + categoryName + "\" already exists. Please use a unique name.",
-                "Error",
+                "Category Management",
                 JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -30,7 +30,7 @@ public class CategoryController {
         saveCategoriesToFile();
         JOptionPane.showMessageDialog(null,
        "Category \"" + categoryName + "\" added successfully.",
-        "Error",
+        "Category Management",
         JOptionPane.INFORMATION_MESSAGE);
     return;
     }
@@ -101,9 +101,13 @@ public void editCategory(String oldCategoryName, String newCategoryName) {
     }
 
     // Get all categories
-    public List<CategoryModel> getAllCategories() {
-        return categories;
+    public void getAllCategories() {
+        System.out.println("=== Categories ===");
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println((i + 1) + ". " + categories.get(i).getCategoryName());
+        }
     }
+    
 
     // Save categories to a file
     private void saveCategoriesToFile() {

@@ -85,9 +85,7 @@ editdeletePanel.add(deleteButton);
 deleteButton.setEnabled(false);
 
 // Load existing categories into the dropdown
-for (CategoryModel category : controller.getAllCategories()) {
-    categoryDropdown.addItem(category.getCategoryName());
-}
+
 
 // Edit button functionality
 editButton.addActionListener(e -> {
